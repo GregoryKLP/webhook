@@ -1,13 +1,21 @@
 function sendData(data, endpoint) {
-if (document.location.href.search('appspot.com') == -1) {
-var xhr = new XMLHttpRequest();
-  var stringifiedData = JSON.stringify(data);
-
+  var xhr = new XMLHttpRequest();
+  
   xhr.open('POST', endpoint);
-  xhr.send(stringifiedData);
+  xhr.setRequestHeader('Content-Type', 'application/json');
+  
+  xhr.onerror = function () {
+    log('Ошибка при отправке данных: запрос завершился с ошибкой.');
+  };
+  
   xhr.onload = function () {
     if (xhr.status.toString()[0] !== '2') {
-      console.error(xhr.status + '> ' + xhr.statusText);
+      log('Ошибка при отправке данных: статус', xhr.status, '—', xhr.statusText);
+    } else {
+      log('Данные успешно отправлены на', endpoint, 'с ответом:', xhr.responseText);
     }
   };
-} 
+  
+  log('Отправляем данные на вебхук...');
+  xhr.send(JSON.stringify(data));
+}
