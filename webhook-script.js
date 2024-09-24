@@ -11,3 +11,4 @@ var xhr = new XMLHttpRequest();
     }
   };
 } 
+}
