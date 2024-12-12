@@ -101,6 +101,9 @@ function determineSecondChannel(primaryChannel, fallbackData) {
     }
   }
 
+  if (parsedParams["regsource"] && parsedParams["regsource"] === "eshop") {
+    checkAndAssignChannel("op.lt", true);
+  }
   if (!secondaryChannel) {
     secondaryChannel = "No Second Source";
   }
